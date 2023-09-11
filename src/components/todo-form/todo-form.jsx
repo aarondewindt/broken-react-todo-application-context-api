@@ -6,8 +6,19 @@ export const TodoForm = () => {
   const { todos, setTodos } = React.useContext(TodosContext);
   const [task, setTask] = React.useState('');
 
+  const generateUniqueId = () => Date.now() + Math.floor(Math.random() * 100);
+
   const handleAddTodo = () => {
     // Fin an ability to add new task
+    if (task.trim() !== '') {
+      const updatedTodos = [...todos, {
+        id: generateUniqueId(),
+        label: task,
+        checked: false,
+      }];
+      setTodos(updatedTodos);
+      setTask('');
+    }
   };
 
   const handleKeyUp = (e) => {
